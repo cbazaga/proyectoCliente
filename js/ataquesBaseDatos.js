@@ -5,7 +5,7 @@ import {
     getFirestore,
     collection,
     getDocs,
-} from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
+} from "https://www.gstatic.com/firebasejs/9.6.2/firebase-firestore.js";
 
 //### CONSTANTES ###//
 const bd = getFirestore(app);
