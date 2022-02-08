@@ -30,7 +30,7 @@ body, html {
 
 #header{
     flex-grow: 1;
-    height: 60px;
+    height: 50px;
     background: rgb(48,69,149);
     background: linear-gradient(90deg, rgba(48,69,149,1) 0%, rgba(144,61,81,1) 100%);
     display: flex;

@@ -12,22 +12,24 @@ export function pintarInputsTextInhabilitados(objeto, div){
 
 //Pinta dentro de un div los productos de la tienda de
 export function pintarProductosEnDiv(objeto, div){
-    var divObj = d.createElement("div");
-    objeto.docs.map((prod) =>{
+    objeto.map((prod) =>{
+        var divObj = d.createElement("div");
         const n = document.createElement("p");  
         n.innerHTML = prod.data().nom_prod;
+        const a = document.createElement("p");
+        a.innerHTML = prod.data().artista;
+        const pr = document.createElement("p");
+        pr.innerHTML = `${prod.data().precio}€`;
         const i = document.createElement("img");
-        i.addEventListener("click", ()=>{//Para que se vea más grande la imágen
-            imagenGrande(prod);
+        i.classList.add("imgPequeñaProducto");
+        divObj.addEventListener("click", ()=>{
+            window.location.href = `../producto.html?producto=${prod.id}`;
         }, false)
-
-        i.addEventListener("mouseout", ()=>{
-            imagenPequena();
-        }, false)
-
         i.setAttribute("src",prod.data().imagen);
         divObj.appendChild(i);
         divObj.appendChild(n);
+        divObj.appendChild(a);
+        divObj.appendChild(pr);
         div.appendChild(divObj);
     })
 }

@@ -14,11 +14,10 @@ const productos = collection(bd, "Colección1");
 
 //### FUNCIONES ###//
 export async function getUsuarios(){
-    var usu = await getDocs(usuarios);
-    return usu;
+    return await getDocs(usuarios);
 }
 
 export async function getProductos(){
     var pro = await getDocs(productos);
-    return pro;
+    return pro.docs;
 }
