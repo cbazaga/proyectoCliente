@@ -1,5 +1,5 @@
 "use strict";
-
+import { borrarDoc } from "./ataquesBaseDatos.js";
 const d = document;
 
 //A esta función se le pasa por parametro la/las colecciones y el div donde se va a pintar y se imprime un formulario de solo lectura
@@ -139,7 +139,7 @@ export function pintarGeneral(documento){//Plantilla que inserta la información
             borrar.setAttribute("id", "botBorrar");
             borrar.innerHTML = "borrar";
             borrar.addEventListener("click", (e)=>{
-              eliminar(prod.id, e.target);
+              borrarDocYDiv(prod.id, e.target, prod.data().nom_prod);
             }, false)
             divI.appendChild(borrar);
 
@@ -174,6 +174,10 @@ export function pintarGeneral(documento){//Plantilla que inserta la información
       
     }
 
-    function borrar(id, boton){
-        
+    function borrarDocYDiv(id, boton, nombre){
+      if(confirm(`¿Estás seguro de que quieres borrar el producto ${nombre}?`)){
+        borrarDoc(id);
+        var padre = boton.parentNode.parentNode;
+        padre.remove();
+      }
     }

@@ -5,6 +5,7 @@ import {
     getFirestore,
     collection,
     getDocs,
+    doc,
     deleteDoc,
 } from "https://www.gstatic.com/firebasejs/9.6.2/firebase-firestore.js";
 
@@ -24,5 +25,5 @@ export async function getProductos(){
 }
 
 export async function borrarDoc(id){
-    deleteDoc
+    await deleteDoc(doc(productos, id));
 }
