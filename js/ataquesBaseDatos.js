@@ -7,6 +7,7 @@ import {
     getDocs,
     doc,
     deleteDoc,
+    setDoc,
 } from "https://www.gstatic.com/firebasejs/9.6.2/firebase-firestore.js";
 
 //### CONSTANTES ###//
@@ -26,4 +27,8 @@ export async function getProductos(){
 
 export async function borrarDoc(id){
     await deleteDoc(doc(productos, id));
+}
+
+export async function actualizarDoc(json, id){
+    await setDoc(doc(productos, id), json);
 }

@@ -1,5 +1,5 @@
 "use strict";
-import { borrarDoc } from "./ataquesBaseDatos.js";
+import {borrarDoc, actualizarDoc } from "./ataquesBaseDatos.js";
 const d = document;
 
 //A esta función se le pasa por parametro la/las colecciones y el div donde se va a pintar y se imprime un formulario de solo lectura
@@ -88,16 +88,19 @@ export function pintarGeneral(documento){//Plantilla que inserta la información
         const pr = document.createElement("p");
         const d = document.createElement("p");
         const a = document.createElement("p");
+        const i = document.createElement("p");
         n.innerHTML = "NOMBRE";
         p.innerHTML = "PESO";
         pr.innerHTML = "PRECIO";
         d.innerHTML = "DESCRIPCION";
         a.innerHTML = "ARTISTA";
+        i.innerHTML = "IMAGEN";
         div1.appendChild(n);
         div1.appendChild(a);
         div1.appendChild(p);
         div1.appendChild(pr);
         div1.appendChild(d);
+        div1.appendChild(i);
         div.appendChild(div1);
         
         documento.map((prod) =>{
@@ -131,7 +134,7 @@ export function pintarGeneral(documento){//Plantilla que inserta la información
             var editar = document.createElement("button");
             editar.innerHTML = "editar";
             editar.addEventListener("click", (e)=>{
-              pulsable(e.target);
+              pulsable(e.target, prod.id);
             },false)
             divI.appendChild(editar);
             
@@ -141,6 +144,12 @@ export function pintarGeneral(documento){//Plantilla que inserta la información
             borrar.addEventListener("click", (e)=>{
               borrarDocYDiv(prod.id, e.target, prod.data().nom_prod);
             }, false)
+            var enviar = document.createElement("button");
+            enviar.innerHTML = "actualizar";
+            enviar.addEventListener("click", (e)=>{
+              actualizar(e.target.parentNode.parentNode, prod.id);
+            }, false)
+            divI.appendChild(enviar);
             divI.appendChild(borrar);
 
             div2.appendChild(n);
@@ -154,24 +163,36 @@ export function pintarGeneral(documento){//Plantilla que inserta la información
       })
     }
 
-    export function pulsable(boton){
+    export function pulsable(boton, id){
         var padre = boton.parentNode.parentNode;
         for (let i = 0; i < padre.childNodes.length; i++) {
-          if(i!= padre.childNodes.length-1) {
-            padre.childNodes[i].removeAttribute("readonly");
-            padre.childNodes[i].classList.add("editable");
+          if(!padre.childNodes[i].classList.contains("editable")){
+            if(i!= padre.childNodes.length-1) {
+              padre.childNodes[i].removeAttribute("readonly");
+              padre.childNodes[i].classList.add("editable");
+            }
+          }
+          else {
+            if(i!= padre.childNodes.length-1) {
+              padre.childNodes[i].setAttribute("readonly","");
+              padre.childNodes[i].classList.remove("editable");
+            }
           }
         }
-        var enviar = d.createElement("button");
-        enviar.innerHTML = "actualizar";
-        enviar.addEventListener("click", ()=>{
-            actualizar(padre);
-        }, false)
-        padre.childNodes[padre.childNodes.length-1].appendChild(enviar);
+        
     }
 
-    export function actualizar(padre){
-      
+    export function actualizar(padre, id){
+      var json = {
+        nom_prod: padre.childNodes[0].value,
+        artista: padre.childNodes[1].value,
+        peso: padre.childNodes[2].value,
+        precio: padre.childNodes[3].value,
+        descripcion: padre.childNodes[4].value,
+        imagen: padre.childNodes[5].value
+      }
+
+      actualizarDoc(json, id);
     }
 
     function borrarDocYDiv(id, boton, nombre){
