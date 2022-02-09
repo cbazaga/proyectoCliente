@@ -22,6 +22,10 @@ body, html {
     color: white;
 }
 
+.editable{
+    background-color: lightblue;
+}
+
 /*#############  IDs  ##############*/
 
 #container{
@@ -83,10 +87,15 @@ body, html {
 #divEditar > div{
     margin: auto auto;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr auto;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 100px;
     width: 90%;
+    margin-bottom: 15px;
 }
 
+#divEditar > div > div:last-child{
+    display: flex;
+    flex-direction: column;
+}
 
 #divEditar p{
     margin: 10px 0;

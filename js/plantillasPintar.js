@@ -103,48 +103,77 @@ export function pintarGeneral(documento){//Plantilla que inserta la información
         documento.map((prod) =>{
             const div2 = document.createElement("div");
             const n = document.createElement("textarea"); 
-            n.setAttribute("readonly", "");
-            const p = document.createElement("textarea");
-            p.setAttribute("readonly", "");
-            const pr = document.createElement("textarea");
-            pr.setAttribute("readonly", "");
+            const p = document.createElement("input");
+            const pr = document.createElement("input");
             const d = document.createElement("textarea");
-            d.setAttribute("readonly", "");
             const a = document.createElement("textarea");
+            const i = document.createElement("textarea");
+            const divI = document.createElement("div");
+            n.setAttribute("readonly", "");
+            p.setAttribute("type", "number");
+            p.setAttribute("readonly", "");
+            pr.setAttribute("type", "number");
+            pr.setAttribute("readonly", "");
+            d.setAttribute("readonly", "");
             a.setAttribute("readonly", "");
+            i.setAttribute("readonly", "");
             n.innerHTML = prod.data().nom_prod;
-            p.innerHTML = prod.data().peso;
-            pr.innerHTML = prod.data().precio;
+            p.value = prod.data().peso;
+            pr.value = prod.data().precio;
             d.innerHTML = prod.data().descripcion;
             a.innerHTML = prod.data().artista;
+            i.innerHTML = prod.data().imagen;
             
-            const divI = document.createElement("div");
-            var i = document.createElement("img");
-            /*i.addEventListener("mouseover", ()=>{//Para que se vea más grande la imágen
-              imagenGrande(prod.data().imagen);
-            }, false)
-
-            i.addEventListener("mouseout", ()=>{
-              imagenPequena();
-            }, false)*/
-
-            i.setAttribute("src",prod.data().imagen);
-            divI.appendChild(i);
-            i = document.createElement("img");
-            i.setAttribute("src", "https://png.pngtree.com/element_our/20190523/ourlarge/pngtree-green-plus-sign-simple-logo-image_1082145.jpg");
-            i.classList.add("pulsable");
-
-            /*i.addEventListener("click", ()=>{
-              addProducto(prod.data().nom_prod);
+            
+            
+            
+            
+            var editar = document.createElement("button");
+            editar.innerHTML = "editar";
+            editar.addEventListener("click", (e)=>{
+              pulsable(e.target);
             },false)
-            divI.appendChild(i);*/
+            divI.appendChild(editar);
+            
+            var borrar = document.createElement("button");
+            borrar.setAttribute("id", "botBorrar");
+            borrar.innerHTML = "borrar";
+            borrar.addEventListener("click", (e)=>{
+              eliminar(prod.id, e.target);
+            }, false)
+            divI.appendChild(borrar);
 
             div2.appendChild(n);
             div2.appendChild(a);
             div2.appendChild(p);
             div2.appendChild(pr);
             div2.appendChild(d);
+            div2.appendChild(i);
             div2.appendChild(divI);
             div.appendChild(div2);
-    })
+      })
+    }
+
+    export function pulsable(boton){
+        var padre = boton.parentNode.parentNode;
+        for (let i = 0; i < padre.childNodes.length; i++) {
+          if(i!= padre.childNodes.length-1) {
+            padre.childNodes[i].removeAttribute("readonly");
+            padre.childNodes[i].classList.add("editable");
+          }
+        }
+        var enviar = d.createElement("button");
+        enviar.innerHTML = "actualizar";
+        enviar.addEventListener("click", ()=>{
+            actualizar(padre);
+        }, false)
+        padre.childNodes[padre.childNodes.length-1].appendChild(enviar);
+    }
+
+    export function actualizar(padre){
+      
+    }
+
+    function borrar(id, boton){
+        
     }

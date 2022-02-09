@@ -5,6 +5,7 @@ import {
     getFirestore,
     collection,
     getDocs,
+    deleteDoc,
 } from "https://www.gstatic.com/firebasejs/9.6.2/firebase-firestore.js";
 
 //### CONSTANTES ###//
@@ -22,18 +23,6 @@ export async function getProductos(){
     return pro.docs;
 }
 
-export async function getListaSpotify(){
-    var respuesta = await fetch("https://spotify-charts.p.rapidapi.com/dominican-republic-top-200", {
-        "method": "GET",
-        "headers": {
-            "x-rapidapi-host": "spotify-charts.p.rapidapi.com",
-            "x-rapidapi-key": "SIGN-UP-FOR-KEY"
-        }
-    })
-    .then(response => {
-        console.log(response);
-    })
-    .catch(err => {
-        console.error(err);
-    });
+export async function borrarDoc(id){
+    deleteDoc
 }
