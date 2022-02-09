@@ -1,6 +1,7 @@
 "use strict";
 import {borrarDoc, actualizarDoc } from "./ataquesBaseDatos.js";
 const d = document;
+var divActual;
 
 //A esta función se le pasa por parametro la/las colecciones y el div donde se va a pintar y se imprime un formulario de solo lectura
 export function pintarInputsTextInhabilitados(objeto, div){
@@ -82,6 +83,8 @@ export function pintarGeneral(documento){//Plantilla que inserta la información
   
   //Plantilla que inserta la información del documento al DOM (backend)
   export function pintarBackendGeneral(documento, div){
+        if (div) divActual = div;
+        limpiarBackend(divActual);
         const div1 = document.createElement("div");
         const n = document.createElement("p"); 
         const p = document.createElement("p");
@@ -101,7 +104,7 @@ export function pintarGeneral(documento){//Plantilla que inserta la información
         div1.appendChild(pr);
         div1.appendChild(d);
         div1.appendChild(i);
-        div.appendChild(div1);
+        divActual.appendChild(div1);
         
         documento.map((prod) =>{
             const div2 = document.createElement("div");
@@ -159,11 +162,15 @@ export function pintarGeneral(documento){//Plantilla que inserta la información
             div2.appendChild(d);
             div2.appendChild(i);
             div2.appendChild(divI);
-            div.appendChild(div2);
+            divActual.appendChild(div2);
       })
     }
 
-    export function pulsable(boton, id){
+    function limpiarBackend(){
+      divActual.innerHTML = "";
+    }
+
+     function pulsable(boton, id){
         var padre = boton.parentNode.parentNode;
         for (let i = 0; i < padre.childNodes.length; i++) {
           if(!padre.childNodes[i].classList.contains("editable")){
@@ -182,7 +189,7 @@ export function pintarGeneral(documento){//Plantilla que inserta la información
         
     }
 
-    export function actualizar(padre, id){
+    async function actualizar(padre, id){
       var json = {
         nom_prod: padre.childNodes[0].value,
         artista: padre.childNodes[1].value,
@@ -192,7 +199,8 @@ export function pintarGeneral(documento){//Plantilla que inserta la información
         imagen: padre.childNodes[5].value
       }
 
-      actualizarDoc(json, id);
+      await actualizarDoc(json, id);
+      limpiarBackend(divActual);
     }
 
     function borrarDocYDiv(id, boton, nombre){
@@ -202,3 +210,5 @@ export function pintarGeneral(documento){//Plantilla que inserta la información
         padre.remove();
       }
     }
+
+    
