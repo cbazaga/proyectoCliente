@@ -33,3 +33,118 @@ export function pintarProductosEnDiv(objeto, div){
         div.appendChild(divObj);
     })
 }
+
+export function pintarGeneral(documento){//Plantilla que inserta la información al DOM
+    borrarDivs();
+    const nombre = d.getElementById("nom2");
+      const peso = d.getElementById("pes");
+      const precio = d.getElementById("pre");
+      const imagen = d.getElementById("imagen");
+      const descripcion = d.getElementById("descripcion");
+      documento.docs.map((prod) =>{
+          const n = document.createElement("p"); 
+          n.innerHTML = prod.data().nom_prod;
+          nombre.appendChild(n);
+          const p = document.createElement("p");
+          p.innerHTML = prod.data().peso;
+          peso.appendChild(p);
+          const pr = document.createElement("p");
+          pr.innerHTML = prod.data().precio;
+          precio.appendChild(pr);
+          const divI = document.createElement("div");
+          var i = document.createElement("img");
+          i.addEventListener("mouseover", ()=>{//Para que se vea más grande la imágen
+            imagenGrande(prod.data().imagen);
+          }, false)
+
+          i.addEventListener("mouseout", ()=>{
+            imagenPequena();
+          }, false)
+
+          i.setAttribute("src",prod.data().imagen);
+          divI.appendChild(i);
+          i = document.createElement("img");
+          i.setAttribute("src", "https://png.pngtree.com/element_our/20190523/ourlarge/pngtree-green-plus-sign-simple-logo-image_1082145.jpg");
+          i.classList.add("pulsable");
+
+          i.addEventListener("click", ()=>{
+            addProducto(prod.data().nom_prod);
+          },false)
+          divI.appendChild(i);
+
+          imagen.appendChild(divI);
+
+          const d = document.createElement("p");
+          d.innerHTML = prod.data().descripcion;
+          descripcion.appendChild(d);
+  })
+  }
+  
+  //Plantilla que inserta la información del documento al DOM (backend)
+  export function pintarBackendGeneral(documento, div){
+        const div1 = document.createElement("div");
+        const n = document.createElement("p"); 
+        const p = document.createElement("p");
+        const pr = document.createElement("p");
+        const d = document.createElement("p");
+        const a = document.createElement("p");
+        n.innerHTML = "NOMBRE";
+        p.innerHTML = "PESO";
+        pr.innerHTML = "PRECIO";
+        d.innerHTML = "DESCRIPCION";
+        a.innerHTML = "ARTISTA";
+        div1.appendChild(n);
+        div1.appendChild(a);
+        div1.appendChild(p);
+        div1.appendChild(pr);
+        div1.appendChild(d);
+        div.appendChild(div1);
+        
+        documento.map((prod) =>{
+            const div2 = document.createElement("div");
+            const n = document.createElement("textarea"); 
+            n.setAttribute("readonly", "");
+            const p = document.createElement("textarea");
+            p.setAttribute("readonly", "");
+            const pr = document.createElement("textarea");
+            pr.setAttribute("readonly", "");
+            const d = document.createElement("textarea");
+            d.setAttribute("readonly", "");
+            const a = document.createElement("textarea");
+            a.setAttribute("readonly", "");
+            n.innerHTML = prod.data().nom_prod;
+            p.innerHTML = prod.data().peso;
+            pr.innerHTML = prod.data().precio;
+            d.innerHTML = prod.data().descripcion;
+            a.innerHTML = prod.data().artista;
+            
+            const divI = document.createElement("div");
+            var i = document.createElement("img");
+            /*i.addEventListener("mouseover", ()=>{//Para que se vea más grande la imágen
+              imagenGrande(prod.data().imagen);
+            }, false)
+
+            i.addEventListener("mouseout", ()=>{
+              imagenPequena();
+            }, false)*/
+
+            i.setAttribute("src",prod.data().imagen);
+            divI.appendChild(i);
+            i = document.createElement("img");
+            i.setAttribute("src", "https://png.pngtree.com/element_our/20190523/ourlarge/pngtree-green-plus-sign-simple-logo-image_1082145.jpg");
+            i.classList.add("pulsable");
+
+            /*i.addEventListener("click", ()=>{
+              addProducto(prod.data().nom_prod);
+            },false)
+            divI.appendChild(i);*/
+
+            div2.appendChild(n);
+            div2.appendChild(a);
+            div2.appendChild(p);
+            div2.appendChild(pr);
+            div2.appendChild(d);
+            div2.appendChild(divI);
+            div.appendChild(div2);
+    })
+    }
