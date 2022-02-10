@@ -1,5 +1,5 @@
 "use strict";
-import {pintarBackendProducto, pintarBackendUsuarios} from "./plantillasPintar.js";
+import {pintarBackendProducto, pintarBackendUsuarios, mostrarFormularioAddProductos} from "./plantillasPintar.js";
 import {getProductos, getUsuarios} from "./ataquesBaseDatos.js";
 
 window.onload = async ()=>{
@@ -9,6 +9,8 @@ window.onload = async ()=>{
     // ##### ASIGNANDO BOTONES ##### //
     var botonEditarProductos = d.getElementById("editarProductos");
     var botonEditarUsuarios = d.getElementById("editarUsuarios");
+    var botonAddProductos = d.getElementById("botonAddProductos");
+    var botonAddUsuarios = d.getElementById("botonAddUsuarios");
 
     // ##### ASIGNANDO EVENTOS ##### //
 
@@ -23,5 +25,19 @@ window.onload = async ()=>{
         var divEditar = d.getElementById("divEditar");
         pintarBackendUsuarios(usuarios, divEditar);
     }, false);
+
+    botonAddProductos.addEventListener("click", ()=>{
+        mostrarFormularioAddProductos(divEditar);
+    }, false)
+
+    /*botonAddUsuarios.addEventListener("click", ()=>{
+        mostrarFormularioAddUsuarios(divEditar);
+    })*/
+
+    // ##### FUNCIONES ##### //
+
+    function getDivEditar(){
+        return d.getElementById("divEditar");
+    }
 
 }

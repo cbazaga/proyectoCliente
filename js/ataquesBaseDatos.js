@@ -5,6 +5,7 @@ import {
     getFirestore,
     collection,
     getDocs,
+    getDoc,
     doc,
     deleteDoc,
     setDoc,
@@ -26,11 +27,23 @@ export async function getProductos(){
     return pro.docs;
 }
 
+export async function getProducto(id){
+    var pro = await getDoc(doc(productos, id));
+    return pro.data();
+}
+
 export async function borrarDoc(id){
     await deleteDoc(doc(productos, id));
 }
 
 export async function actualizarDoc(json, id, valor){
-    if(valor == "productos") await setDoc(doc(productos, id), json);
-    else await setDoc(doc(usuarios, id), json);
+    if(id){
+        if(valor == "productos") await setDoc(doc(productos, id), json);
+        else await setDoc(doc(usuarios, id), json);
+    }
+    else{
+        if(valor == "productos") await setDoc(doc(productos), json);
+    }
+    
+    
 }

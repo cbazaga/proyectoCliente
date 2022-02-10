@@ -197,7 +197,7 @@ export function pintarGeneral(documento){//Plantilla que inserta la información
           var editar = document.createElement("button");
           editar.innerHTML = "editar";
           editar.addEventListener("click", (e)=>{
-            pulsable(e.target, prod.id);
+            pulsable(e.target);
           },false)
           divI.appendChild(editar);
           
@@ -227,7 +227,7 @@ export function pintarGeneral(documento){//Plantilla que inserta la información
       d.getElementById("divEditar").innerHTML = "";
     }
 
-     function pulsable(boton, id){
+     function pulsable(boton){
         var padre = boton.parentNode.parentNode;
         for (let i = 0; i < padre.childNodes.length; i++) {
           if(!padre.childNodes[i].classList.contains("editable")){
@@ -279,5 +279,111 @@ export function pintarGeneral(documento){//Plantilla que inserta la información
         padre.remove();
       }
     }
+
+    export function mostrarFormularioAddProductos(div){
+      limpiarBackend();
+        var div1 = document.createElement("div");
+        var n = document.createElement("p"); 
+        var p = document.createElement("p");
+        var pr = document.createElement("p");
+        var d = document.createElement("p");
+        var a = document.createElement("p");
+        var i = document.createElement("p");
+        n.innerHTML = "NOMBRE";
+        p.innerHTML = "PESO";
+        pr.innerHTML = "PRECIO";
+        d.innerHTML = "DESCRIPCION";
+        a.innerHTML = "ARTISTA";
+        i.innerHTML = "IMAGEN";
+        div1.appendChild(n);
+        div1.appendChild(a);
+        div1.appendChild(p);
+        div1.appendChild(pr);
+        div1.appendChild(d);
+        div1.appendChild(i);
+        div.appendChild(div1);
+        
+            const div2 = document.createElement("div");
+            n = document.createElement("textarea"); 
+             p = document.createElement("input");
+             pr = document.createElement("input");
+             d = document.createElement("textarea");
+             a = document.createElement("textarea");
+             i = document.createElement("textarea");
+            divI = document.createElement("div");
+            p.setAttribute("type", "number");
+            pr.setAttribute("type", "number");
+            
+            var divI = document.createElement("div");
+            var cancelar = document.createElement("button");
+            cancelar.setAttribute("id", "botCancelar");
+            cancelar.innerHTML = "cancelar";
+            cancelar.addEventListener("click", (e)=>{
+              limpiarBackend();
+            }, false)
+            var add = document.createElement("button");
+            add.innerHTML = "actualizar";
+            add.addEventListener("click", (e)=>{
+              addProducto(e.target.parentNode.parentNode);
+            }, false)
+            divI.appendChild(cancelar);
+            divI.appendChild(add);
+
+            div2.appendChild(n);
+            div2.appendChild(a);
+            div2.appendChild(p);
+            div2.appendChild(pr);
+            div2.appendChild(d);
+            div2.appendChild(i);
+            div2.appendChild(divI);
+            
+            div.appendChild(div2);
+      }
+
+  function addProducto(padre){
+    var json = {
+      nom_prod: padre.childNodes[0].value,
+      artista: padre.childNodes[1].value,
+      peso: padre.childNodes[2].value,
+      precio: padre.childNodes[3].value,
+      descripcion: padre.childNodes[4].value,
+      imagen: padre.childNodes[5].value
+    }
+    actualizarDoc(json, false, "productos");
+    limpiarBackend();
+  }
+
+  function addUsuario(padre, usuarios){
+    var id = 1;
+    var semaforo = true;
+    usuarios.map((p)=>{
+      if (id == p.data().id && semaforo){
+         id+=1;
+      }
+      else return true;
+    })
+    actualizar(padre, false, "productos");
+  }
+
+  export function pintarProducto(producto, divInsertar){
+    var div = d.createElement("div");
+    var div2 = d.createElement("div");
+    var div3 = d.createElement("div");
+    var img = d.createElement("img");
+    var nom = d.createElement("p");
+    var art = d.createElement("p");
+    var pes = d.createElement("p");
+    var pre = d.createElement("p");
+    img.setAttribute("src", producto.imagen);
+    nom.id = "cancion";
+    nom.innerHTML = producto.nom_prod;
+    art.id = "artista";
+    art.innerHTML = producto.artista;
+    div.appendChild(img);
+    div2.appendChild(nom);
+    div2.appendChild(art);
+    div.appendChild(div2);
+    divInsertar.appendChild(div);
+  }
 
     
