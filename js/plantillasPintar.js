@@ -82,9 +82,8 @@ export function pintarGeneral(documento){//Plantilla que inserta la información
   }
   
   //Plantilla que inserta la información del documento al DOM (backend)
-  export function pintarBackendGeneral(documento, div){
-        if (div) divActual = div;
-        limpiarBackend(divActual);
+  export function pintarBackendProducto(documento, div){
+        limpiarBackend();
         const div1 = document.createElement("div");
         const n = document.createElement("p"); 
         const p = document.createElement("p");
@@ -104,7 +103,7 @@ export function pintarGeneral(documento){//Plantilla que inserta la información
         div1.appendChild(pr);
         div1.appendChild(d);
         div1.appendChild(i);
-        divActual.appendChild(div1);
+        div.appendChild(div1);
         
         documento.map((prod) =>{
             const div2 = document.createElement("div");
@@ -162,12 +161,70 @@ export function pintarGeneral(documento){//Plantilla que inserta la información
             div2.appendChild(d);
             div2.appendChild(i);
             div2.appendChild(divI);
-            divActual.appendChild(div2);
+            div.appendChild(div2);
       })
     }
 
+    //Igual que la anterior pero para los usuarios
+    export function pintarBackendUsuarios(documento, div){
+      limpiarBackend();
+      const div1 = document.createElement("div");
+      const n = document.createElement("p"); 
+      const nomCom = document.createElement("p");
+      const r = document.createElement("p");
+      n.innerHTML = "NOMBRE";
+      nomCom.innerHTML = "NOMBRE COMPLETO";
+      r.innerHTML = "ROL";
+      div1.appendChild(n);
+      div1.appendChild(nomCom);
+      div1.appendChild(r);
+      div.appendChild(div1);
+      
+      documento.map((prod) =>{
+          const div2 = document.createElement("div");
+          const n = document.createElement("textarea");
+          const nomCom = document.createElement("textarea");
+          const r = document.createElement("textarea");
+          const divI = document.createElement("div");
+          n.setAttribute("readonly", "");
+          nomCom.setAttribute("readonly", "");
+          r.setAttribute("readonly", "");
+          
+          n.innerHTML = prod.data().nombre;
+          r.value = prod.data().rol;
+          nomCom.innerHTML = prod.data().nombre_completo;      
+          
+          var editar = document.createElement("button");
+          editar.innerHTML = "editar";
+          editar.addEventListener("click", (e)=>{
+            pulsable(e.target, prod.id);
+          },false)
+          divI.appendChild(editar);
+          
+          var borrar = document.createElement("button");
+          borrar.setAttribute("id", "botBorrar");
+          borrar.innerHTML = "borrar";
+          borrar.addEventListener("click", (e)=>{
+            borrarDocYDiv(prod.id, e.target, prod.data().nom_prod);
+          }, false)
+          var enviar = document.createElement("button");
+          enviar.innerHTML = "actualizar";
+          enviar.addEventListener("click", (e)=>{
+            actualizar(e.target.parentNode.parentNode, prod.id);
+          }, false)
+          divI.appendChild(enviar);
+          divI.appendChild(borrar);
+
+          div2.appendChild(n);
+          div2.appendChild(nomCom);
+          div2.appendChild(r);
+          div2.appendChild(divI);
+          div.appendChild(div2);
+    })
+  }
+
     function limpiarBackend(){
-      divActual.innerHTML = "";
+      d.getElementById("divEditar").innerHTML = "";
     }
 
      function pulsable(boton, id){
@@ -189,18 +246,30 @@ export function pintarGeneral(documento){//Plantilla que inserta la información
         
     }
 
-    async function actualizar(padre, id){
-      var json = {
-        nom_prod: padre.childNodes[0].value,
-        artista: padre.childNodes[1].value,
-        peso: padre.childNodes[2].value,
-        precio: padre.childNodes[3].value,
-        descripcion: padre.childNodes[4].value,
-        imagen: padre.childNodes[5].value
+    async function actualizar(padre, id, valor){
+      if(valor == "productos") {
+        var json = {
+          nom_prod: padre.childNodes[0].value,
+          artista: padre.childNodes[1].value,
+          peso: padre.childNodes[2].value,
+          precio: padre.childNodes[3].value,
+          descripcion: padre.childNodes[4].value,
+          imagen: padre.childNodes[5].value
+        }
+        await actualizarDoc(json, id, "productos");
+        limpiarBackend();
+      }
+      else{
+        var json = {
+          nombre: padre.childNodes[0].value,
+          nombre_completo: padre.childNodes[1].value,
+          rol: padre.childNodes[2].value,
+        }
+        await actualizarDoc(json, id, "usuarios");
+        limpiarBackend();
       }
 
-      await actualizarDoc(json, id);
-      limpiarBackend(divActual);
+      
     }
 
     function borrarDocYDiv(id, boton, nombre){

@@ -17,7 +17,8 @@ const productos = collection(bd, "Colección1");
 
 //### FUNCIONES ###//
 export async function getUsuarios(){
-    return await getDocs(usuarios);
+    var usu = await getDocs(usuarios);
+    return usu.docs;
 }
 
 export async function getProductos(){
@@ -29,6 +30,7 @@ export async function borrarDoc(id){
     await deleteDoc(doc(productos, id));
 }
 
-export async function actualizarDoc(json, id){
-    await setDoc(doc(productos, id), json);
+export async function actualizarDoc(json, id, valor){
+    if(valor == "productos") await setDoc(doc(productos, id), json);
+    else await setDoc(doc(usuarios, id), json);
 }
