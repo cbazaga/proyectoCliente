@@ -26,26 +26,23 @@ body, html {
     background-color: lightblue;
 }
 
-#header .botAdd{
-    width: 50px;
-    padding: 0;
-    margin-left: 25px;
+.oculto{
+    display: none;
 }
 
 /*#############  IDs  ##############*/
 
 #container{
     height: 100%;
-    background-color:black;
 }
 
 #header{
     flex-grow: 1;
-    height: 50px;
+    height: 80px;
     background: rgb(48,69,149);
     background: linear-gradient(90deg, rgba(48,69,149,1) 0%, rgba(144,61,81,1) 100%);
     display: flex;
-    font-family: "Monumbam margera skateentExtended";
+    font-family: "MonumentExtended";
 }
 
 #section{
@@ -53,7 +50,7 @@ body, html {
     width: 100%;
     height: calc(100vh - 50px);
     background-color:black;
-    *background-image: url("https://i0.wp.com/hipertextual.com/wp-content/uploads/2016/09/photo-1470225620780-dba8ba36b745-scaled.jpg?fit=1200%2C800&ssl=1");
+    background-image: url("https://i0.wp.com/hipertextual.com/wp-content/uploads/2016/09/photo-1470225620780-dba8ba36b745-scaled.jpg?fit=1200%2C800&ssl=1");
     background-size: cover;
 }
 
@@ -62,18 +59,12 @@ body, html {
     height: 100%;
 }
 
-#header a{
+#header > *{
     margin: auto auto;
     border: none;
     font-family: "MonumentExtended";
     padding: 10px 0;
     text-decoration: none;
-}
-
-#header > div{
-    margin: 0 100px;
-    display: flex;
-    padding: 0;
 }
 
 #logoCabecera{
@@ -123,37 +114,55 @@ body, html {
     margin-left: 5px;
 }
 
-#producto{
-    margin: auto auto;
-    width: 80%;
-    height: 70%;
-    color: black;
-}
-
-#producto > div{
-    background-color: white;
+#reproductor{
     display: flex;
-    margin: 5% auto;
+    position: absolute;
+    top: 70%;
+    left: 10%;
+    width: 45%;
+    height: 80px;
+    border-radius: 10px;
+    background-color: black;
+    border: 3px solid white;
 }
 
-#producto img{
-    width: 250px;
-    height: 250px;
+#reproductor > *{
+    margin: auto 10px;
 }
 
-#producto #cancion{
-    font-size: xx-large;
-    width: max-content;
-    height: max-content;
-    margin-left: 50px;
+#reproductor > h3{
+    margin: auto auto;
+    font-size: x-large;
+    padding: 10px 20px;
 }
 
-#producto #artista{
-    color: rgb(124, 124, 124);
-    font-size: large;
-    width: max-content;
-    height: max-content;
-    margin-left: 50px;
+#reproductor > *:nth-child(2), #reproductor > *:nth-child(3){
+    margin-left: auto;
+}
+
+#reproductor > *:last-child{
+    margin-right: auto;
+}
+
+#reproductor > img{
+    width: 45px;
+    height: 45px;
+}
+
+#reproductor > progress{
+    width: 55%;
+}
+
+#header > div {
+    display: flex;
+}
+
+#header > div > a{
+    margin: auto 15px;
+}
+
+#header #botonAddProductos{
+    width: 50px;
 }
 
 /*######### PSEUDOCLASES ###########*/
