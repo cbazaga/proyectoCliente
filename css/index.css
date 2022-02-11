@@ -88,12 +88,22 @@ body, html {
     right: 220px;
 }
 
+#divEditar{
+    
+    width: max-content;
+    margin: auto auto;
+}
+
 #divEditar > div{
     margin: auto auto;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 100px;
     width: 90%;
     margin-bottom: 15px;
+}
+
+#divEditar > div > div{
+    width: max-content;
 }
 
 #divEditar > div > div:last-child{

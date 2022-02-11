@@ -170,29 +170,24 @@ export function pintarGeneral(documento){//Plantilla que inserta la información
       limpiarBackend();
       const div1 = document.createElement("div");
       const n = document.createElement("p"); 
-      const nomCom = document.createElement("p");
       const r = document.createElement("p");
       n.innerHTML = "NOMBRE";
-      nomCom.innerHTML = "NOMBRE COMPLETO";
+      
       r.innerHTML = "ROL";
       div1.appendChild(n);
-      div1.appendChild(nomCom);
       div1.appendChild(r);
       div.appendChild(div1);
       
       documento.map((prod) =>{
           const div2 = document.createElement("div");
           const n = document.createElement("textarea");
-          const nomCom = document.createElement("textarea");
           const r = document.createElement("textarea");
           const divI = document.createElement("div");
           n.setAttribute("readonly", "");
-          nomCom.setAttribute("readonly", "");
           r.setAttribute("readonly", "");
           
           n.innerHTML = prod.data().nombre;
           r.value = prod.data().rol;
-          nomCom.innerHTML = prod.data().nombre_completo;      
           
           var editar = document.createElement("button");
           editar.innerHTML = "editar";
@@ -216,7 +211,6 @@ export function pintarGeneral(documento){//Plantilla que inserta la información
           divI.appendChild(borrar);
 
           div2.appendChild(n);
-          div2.appendChild(nomCom);
           div2.appendChild(r);
           div2.appendChild(divI);
           div.appendChild(div2);

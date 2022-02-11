@@ -145,4 +145,5 @@ window.onload = ()=>{
         revertirOcultoBoton(botReproducir);
         revertirOcultoBoton(botDetener);
     }
+
 }

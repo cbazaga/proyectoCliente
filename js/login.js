@@ -1,12 +1,11 @@
 "use strict";
 
-import { getUsuarios } from "./ataquesBaseDatos.js";
+import { getUsuarios, validarUsuario, registrarUsuario, registrarBD } from "./ataquesBaseDatos.js";
 
 
 
-window.onload = ()=>{
+
     const d = document;
-    
     const botSignUp = d.getElementById("botonSignUp");
 
     botSignUp.addEventListener("click", ()=>{
@@ -16,14 +15,21 @@ window.onload = ()=>{
     }, false)
 
     async function comprobarUsuarioContrasenya(usuario, contrasenya){
-        var usuarios = await getUsuarios();
-        var semaforo = true;
-        usuarios.map((u)=>{
-            if(usuario == u.data().nombre && contrasenya) {
-                alert("Contraseña incorrecta");
+        if(usuario.length > 0 && contrasenya > 0){
+            var arrayUsuario = [usuario, contrasenya];
+            var usuarios = await getUsuarios();
+            usuarios.map((u)=>{
+                if(usuario == u.data().nombre){
+                    if (validarUsuario(arrayUsuario)) alert("Has iniciado sesión correctamente");
+                } 
+            })
+            var registro = registrarUsuario(usuario, contrasenya);
+            if (registro) {
+                registrarBD(arrayUsuario, registro);
+                alert("Registrado correctamente.");
             }
-            
+        }
 
-        })
     }
-}
+
+    
